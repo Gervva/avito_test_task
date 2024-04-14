@@ -467,3 +467,86 @@ paths:
               properties:
                 error:
                   type: string
+  get_banner_version:
+    summary: Получение версии баннера
+    parameters:
+      - in: query
+        name: banner_id
+        required: false
+        schema:
+          type: integer
+          description: Идентификатор баннера
+      - in: query
+        name: version
+        required: false
+        schema:
+          type: integer
+          description: Идентификатор баннера
+      - in: header
+        name: token
+        description: Токен админа
+        schema:
+          type: string
+          example: "admin_token"
+    responses:
+      '200':
+        description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  banner_id:
+                    type: integer
+                    description: Идентификатор баннера
+                  tag_ids:
+                    type: array
+                    description: Идентификаторы тэгов
+                    items:
+                      type: integer
+                  feature_id:
+                    type: integer
+                    description: Идентификатор фичи
+                  content:
+                    type: object
+                    description: Содержимое баннера
+                    additionalProperties: true
+                    example: '{"title": "some_title", "text": "some_text", "url": "some_url"}'
+                  is_active:
+                    type: boolean
+                    description: Флаг активности баннера
+                  version:
+                    type: integer
+                    description: Версия баннера
+                  created_at:
+                    type: string
+                    format: date-time
+                    description: Дата создания баннера
+                  updated_at:
+                    type: string
+                    format: date-time
+                    description: Дата обновления баннера
+      '400':
+        description: Некорректные данные
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error:
+                  type: string
+      '401':
+        description: Пользователь не авторизован
+      '403':
+        description: Пользователь не имеет доступа
+      '404':
+        description: Версия баннера не найдена
+      '500':
+        description: Внутренняя ошибка сервера
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error:
+                  type: string
