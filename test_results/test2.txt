@@ -1,0 +1,42 @@
+./http_bench -c 10 -n 10000 -H "token: admin" "http://localhost:8080/banner?feature_id={{ random 1 10 }}&tag_id=4"     
+running 10 connections, @ http://localhost:8080/banner?feature_id={{ random 1 10 }}&tag_id=4
+
+Summary:
+  Total:        7.000 secs
+  Slowest:      0.029 secs
+  Fastest:      0.001 secs
+  Average:      0.007 secs
+  Requests/sec: 1430.000
+  Total data:   40.992 MB
+  Size/request: 4294 bytes
+
+Status code distribution:
+  [200] 10010 responses
+
+Latency distribution:
+  10% in 0.003 secs
+  25% in 0.004 secs
+  50% in 0.005 secs
+  75% in 0.013 secs
+  90% in 0.015 secs
+  95% in 0.016 secs
+  99% in 0.019 secs
+Summary:
+  Total:        7.000 secs
+  Slowest:      0.029 secs
+  Fastest:      0.001 secs
+  Average:      0.007 secs
+  Requests/sec: 1430.000
+  Total data:   40.992 MB
+  Size/request: 4294 bytes
+
+Status code distribution:
+
+Latency distribution:
+  10% in 0.003 secs
+  25% in 0.004 secs
+  50% in 0.005 secs
+  75% in 0.013 secs
+  90% in 0.015 secs
+  95% in 0.016 secs
+  99% in 0.019 secs

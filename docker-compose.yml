@@ -1,0 +1,52 @@
+version: '3'
+services:
+  service:
+    build: ./
+    # image: banner-service
+    ports:
+      - ${MICROSERVICE_PORT}:${MICROSERVICE_PORT}
+    depends_on:
+      - postgres
+      - redis
+    command: ./service
+    environment:
+      PG_HOST: ${PG_HOST}
+      PG_PORT: ${PG_PORT}
+      PG_USER: ${PG_USER}
+      PG_PASSWORD: ${PG_PASSWORD}
+      PG_DATABASE_NAME: ${PG_DATABASE_NAME}
+
+      CACHE_HOST: ${CACHE_HOST}
+      CACHE_PORT: ${CACHE_PORT}
+
+      MICROSERVICE_PORT: ${MICROSERVICE_PORT}
+
+  postgres:
+    image: postgres:16
+    expose:
+      - "5432"
+    environment:
+      POSTGRES_HOST: ${PG_HOST}
+      POSTGRES_USER: ${PG_USER}
+      POSTGRES_PASSWORD: ${PG_PASSWORD}
+      POSTGRES_DB: ${PG_DATABASE_NAME}
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./migration.sql:/docker-entrypoint-initdb.d/migration.sql
+      # - pg-data:/var/lib/postgresql
+    restart: always
+    healthcheck:
+      test: "exit 0"
+
+  redis:
+    image: "redis:alpine"
+    ports:
+      - "${CACHE_PORT}:6379"
+    # volumes:
+    #   - cache-data:/data
+    restart: always
+
+# volumes:
+#   cache-data:
+#   pg-data:
