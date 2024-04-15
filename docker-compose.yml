@@ -2,7 +2,6 @@ version: '3'
 services:
   service:
     build: ./
-    # image: banner-service
     ports:
       - ${MICROSERVICE_PORT}:${MICROSERVICE_PORT}
     depends_on:
@@ -31,10 +30,9 @@ services:
       POSTGRES_PASSWORD: ${PG_PASSWORD}
       POSTGRES_DB: ${PG_DATABASE_NAME}
     ports:
-      - "5432:5432"
+      - "${PG_PORT}:5432"
     volumes:
       - ./migration.sql:/docker-entrypoint-initdb.d/migration.sql
-      # - pg-data:/var/lib/postgresql
     restart: always
     healthcheck:
       test: "exit 0"
@@ -43,10 +41,4 @@ services:
     image: "redis:alpine"
     ports:
       - "${CACHE_PORT}:6379"
-    # volumes:
-    #   - cache-data:/data
     restart: always
-
-# volumes:
-#   cache-data:
-#   pg-data:
